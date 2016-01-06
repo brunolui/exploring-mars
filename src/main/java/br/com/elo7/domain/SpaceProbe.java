@@ -1,5 +1,7 @@
 package br.com.elo7.domain;
 
+import static java.lang.String.*;
+
 public class SpaceProbe {
 
     private Heading heading;
@@ -16,6 +18,9 @@ public class SpaceProbe {
 
         } else if (command.equals("L")) {
             heading.turnLeft(this);
+
+        } else if (command.equals("M")) {
+            heading.move(this.position);
         }
     }
 
@@ -24,7 +29,11 @@ public class SpaceProbe {
     }
 
     public CardinalDirection getCardinalDirection() {
-        return this.heading.getDirection();
+        return this.heading.getCardinalDirection();
     }
 
+    @Override
+    public String toString() {
+        return format("%s %s", position, heading.getCardinalDirection().getDirection());
+    }
 }

@@ -7,6 +7,7 @@ import static br.com.elo7.domain.CardinalDirection.NORTH;
 import static br.com.elo7.domain.CardinalDirection.SOUTH;
 import static br.com.elo7.domain.CardinalDirection.WEST;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class SpaceProbeTest {
 
@@ -88,6 +89,48 @@ public class SpaceProbeTest {
         spaceProbe.run("");
 
         assertEquals(NORTH, spaceProbe.getCardinalDirection());
+    }
+
+    @Test
+    public void testInvalidDirectionShouldThrowException() throws Exception {
+        try {
+            new SpaceProbe(1, 3, "X");
+            fail("should throw an exception");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Direction X not found", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testMoveCommandHeadingNorth() throws Exception {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
+        spaceProbe.run("M");
+
+        assertEquals("1 4 N", spaceProbe.toString());
+    }
+
+    @Test
+    public void testMoveCommandHeadingSouth() throws Exception {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 3, SOUTH.getDirection());
+        spaceProbe.run("M");
+
+        assertEquals("1 2 S", spaceProbe.toString());
+    }
+
+    @Test
+    public void testMoveCommandHeadingEast() throws Exception {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 3, EAST.getDirection());
+        spaceProbe.run("M");
+
+        assertEquals("2 3 E", spaceProbe.toString());
+    }
+
+    @Test
+    public void testMoveCommandHeadingWest() throws Exception {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 3, WEST.getDirection());
+        spaceProbe.run("M");
+
+        assertEquals("0 3 W", spaceProbe.toString());
     }
 
 }

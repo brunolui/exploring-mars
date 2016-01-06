@@ -13,7 +13,12 @@ public class HeadingToNorth implements Heading {
     }
 
     @Override
-    public CardinalDirection getDirection() {
+    public void move(Position position) {
+        position.forwardCoordinateY();
+    }
+
+    @Override
+    public CardinalDirection getCardinalDirection() {
         return CardinalDirection.NORTH;
     }
 }

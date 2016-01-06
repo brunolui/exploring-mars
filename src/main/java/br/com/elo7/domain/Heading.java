@@ -6,6 +6,8 @@ public interface Heading {
 
     void turnRight(SpaceProbe spaceProbe);
 
-    CardinalDirection getDirection();
+    void move(Position position);
+
+    CardinalDirection getCardinalDirection();
 
 }
