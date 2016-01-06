@@ -12,7 +12,7 @@ import static org.junit.Assert.fail;
 public class SpaceProbeTest {
 
     @Test
-    public void testTurnRightCommandHeadingNorth() throws Exception {
+    public void testTurnRightCommandHeadingNorth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
         spaceProbe.run("R");
 
@@ -20,7 +20,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnLeftCommandHeadingNorth() throws Exception {
+    public void testTurnLeftCommandHeadingNorth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
         spaceProbe.run("L");
 
@@ -28,7 +28,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnRightCommandHeadingSouth() throws Exception {
+    public void testTurnRightCommandHeadingSouth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, SOUTH.getDirection());
         spaceProbe.run("R");
 
@@ -36,7 +36,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnLeftCommandHeadingSouth() throws Exception {
+    public void testTurnLeftCommandHeadingSouth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, SOUTH.getDirection());
         spaceProbe.run("L");
 
@@ -44,7 +44,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnRightCommandHeadingWest() throws Exception {
+    public void testTurnRightCommandHeadingWest() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, WEST.getDirection());
         spaceProbe.run("R");
 
@@ -52,7 +52,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnLeftCommandHeadingWest() throws Exception {
+    public void testTurnLeftCommandHeadingWest() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, WEST.getDirection());
         spaceProbe.run("L");
 
@@ -60,7 +60,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnRightCommandHeadingEast() throws Exception {
+    public void testTurnRightCommandHeadingEast() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, EAST.getDirection());
         spaceProbe.run("R");
 
@@ -68,7 +68,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testTurnLeftCommandHeadingEast() throws Exception {
+    public void testTurnLeftCommandHeadingEast() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, EAST.getDirection());
         spaceProbe.run("L");
 
@@ -76,15 +76,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testUnknownCommandShouldNotChangeCardinalDirection() throws Exception {
-        SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
-        spaceProbe.run("X");
-
-        assertEquals(NORTH, spaceProbe.getCardinalDirection());
-    }
-
-    @Test
-    public void testWithoutCommandShouldNotChangeCardinalDirection() throws Exception {
+    public void testWithoutCommandShouldNotChangeCardinalDirection() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
         spaceProbe.run("");
 
@@ -92,7 +84,18 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testInvalidDirectionShouldThrowException() throws Exception {
+    public void testUnknownCommandShouldThrowException() {
+        try {
+            SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
+            spaceProbe.run("X");
+            fail("should throw an exception");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Command X not found", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testInvalidDirectionShouldThrowException() {
         try {
             new SpaceProbe(1, 3, "X");
             fail("should throw an exception");
@@ -102,7 +105,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testMoveCommandHeadingNorth() throws Exception {
+    public void testMoveCommandHeadingNorth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, NORTH.getDirection());
         spaceProbe.run("M");
 
@@ -110,7 +113,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testMoveCommandHeadingSouth() throws Exception {
+    public void testMoveCommandHeadingSouth() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, SOUTH.getDirection());
         spaceProbe.run("M");
 
@@ -118,7 +121,7 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testMoveCommandHeadingEast() throws Exception {
+    public void testMoveCommandHeadingEast() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, EAST.getDirection());
         spaceProbe.run("M");
 
@@ -126,11 +129,43 @@ public class SpaceProbeTest {
     }
 
     @Test
-    public void testMoveCommandHeadingWest() throws Exception {
+    public void testMoveCommandHeadingWest() {
         SpaceProbe spaceProbe = new SpaceProbe(1, 3, WEST.getDirection());
         spaceProbe.run("M");
 
         assertEquals("0 3 W", spaceProbe.toString());
+    }
+
+    @Test
+    public void testMoreThanOneCommand() {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 1, NORTH.getDirection());
+        spaceProbe.run("MRMR");
+
+        assertEquals("2 2 S", spaceProbe.toString());
+    }
+
+    @Test
+    public void testAllCommands() {
+        SpaceProbe spaceProbe = new SpaceProbe(0, 0, EAST.getDirection());
+        spaceProbe.run("MMMLMLMMRMMMLMLMMMM");
+
+        assertEquals("0 0 S", spaceProbe.toString());
+    }
+
+    @Test
+    public void testFirstGivenExample() {
+        SpaceProbe spaceProbe = new SpaceProbe(1, 2, NORTH.getDirection());
+        spaceProbe.run("LMLMLMLMM");
+
+        assertEquals("1 3 N", spaceProbe.toString());
+    }
+
+    @Test
+    public void testSecondGivenExample() {
+        SpaceProbe spaceProbe = new SpaceProbe(3, 3, EAST.getDirection());
+        spaceProbe.run("MMRMMRMRRM");
+
+        assertEquals("5 1 E", spaceProbe.toString());
     }
 
 }

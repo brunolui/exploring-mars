@@ -1,6 +1,7 @@
 package br.com.elo7.domain;
 
-import static java.lang.String.*;
+import static br.com.elo7.domain.CommandInstruction.getBy;
+import static java.lang.String.format;
 
 public class SpaceProbe {
 
@@ -12,15 +13,23 @@ public class SpaceProbe {
         this.heading = CardinalDirection.getBy(direction).getHeading();
     }
 
-    public void run(String command) {
-        if (command.equals("R")) {
-            heading.turnRight(this);
+    public void run(String commands) {
 
-        } else if (command.equals("L")) {
-            heading.turnLeft(this);
+        for (char command : commands.toCharArray()) {
 
-        } else if (command.equals("M")) {
-            heading.move(this.position);
+            switch (getBy(command)) {
+                case TURN_RIGHT:
+                    heading.turnRight(this);
+                    break;
+
+                case TURN_LEFT:
+                    heading.turnLeft(this);
+                    break;
+
+                case MOVE:
+                    heading.move(this.position);
+                    break;
+            }
         }
     }
 
