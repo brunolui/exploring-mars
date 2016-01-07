@@ -8,8 +8,8 @@ public class SpaceProbe {
     private Heading heading;
     private Position position;
 
-    public SpaceProbe(int coordinateX, int coordinateY, String direction) {
-        this.position = Position.initialize(coordinateX, coordinateY);
+    public SpaceProbe(Plateau plateau, int coordinateX, int coordinateY, String direction) {
+        this.position = Position.initialize(plateau, coordinateX, coordinateY);
         this.heading = CardinalDirection.getBy(direction).getHeading();
     }
 
