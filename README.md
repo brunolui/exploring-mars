@@ -43,3 +43,9 @@ A resposta será uma lista com as posições das sondas na mesma ordem que foram
   }
 ]
 ```
+
+
+Deixei o programa rodando em uma instância hospedada no Heroku. Para testar é só fazer a requisição (POST) na seguinte url:
+```
+http://exploring-mars.herokuapp.com/probes
+```
