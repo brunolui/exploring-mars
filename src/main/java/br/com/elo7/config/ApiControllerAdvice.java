@@ -32,9 +32,9 @@ public class ApiControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ErrorResult validationExceptionHandler(MethodArgumentNotValidException ex) {
-            List<FieldError> erros = ex.getBindingResult().getFieldErrors();
+            List<FieldError> errors = ex.getBindingResult().getFieldErrors();
         return new ErrorResult(
-            erros.stream().map(Error::new).collect(Collectors.toList())
+            errors.stream().map(Error::new).collect(Collectors.toList())
         );
     }
 
