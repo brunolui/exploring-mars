@@ -1,8 +1,6 @@
 package br.com.elo7.domain;
 
-import java.io.Serializable;
-
-public interface Heading extends Serializable {
+public interface Heading {
 
     void turnLeft(SpaceProbe spaceProbe);
 
